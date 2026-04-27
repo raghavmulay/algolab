@@ -38,7 +38,7 @@ export default function AiPanel({ selectedAlgo }) {
     setLoading(true);
 
     try {
-      const res = await axios.post('/api/ai', {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/ai`, {
         prompt,
         selectedAlgo,
         history: updatedMessages.slice(1), // skip the initial greeting
