@@ -1,0 +1,170 @@
+import { motion } from 'framer-motion';
+
+const algorithms = [
+  {
+    section: 'strings',
+    category: 'Sorting',
+    icon: '⇅',
+    items: [
+      { id: 'bubbleSort', name: 'Bubble Sort' },
+      { id: 'mergeSort', name: 'Merge Sort' },
+      { id: 'quickSort', name: 'Quick Sort' },
+    ],
+  },
+  {
+    section: 'strings',
+    category: 'Searching',
+    icon: '⌕',
+    items: [
+      { id: 'binarySearch', name: 'Binary Search' },
+    ],
+  },
+  {
+    section: 'trees',
+    category: 'BST',
+    icon: '🌳',
+    items: [
+      { id: 'bstInsert', name: 'BST Insert' },
+      { id: 'bstSearch', name: 'BST Search' },
+      { id: 'bstDelete', name: 'BST Delete' },
+      { id: 'bstInorder', name: 'Inorder Traversal' },
+      { id: 'bstPreorder', name: 'Preorder Traversal' },
+      { id: 'bstPostorder', name: 'Postorder Traversal' },
+      { id: 'bstBFS', name: 'BFS (Level Order)' },
+      { id: 'bstDFS', name: 'DFS Iterative' },
+    ],
+  },
+  {
+    section: 'dp',
+    category: 'Dynamic Programming',
+    icon: '📊',
+    items: [
+      { id: 'lcs', name: 'LCS' },
+      { id: 'lis', name: 'LIS' },
+      { id: 'mcm', name: 'Matrix Chain Mult.' },
+    ],
+  },
+  {
+    section: 'trees',
+    category: 'AVL Tree',
+    icon: '⚖️',
+    items: [
+      { id: 'avlInsert', name: 'AVL Insert' },
+      { id: 'avlDelete', name: 'AVL Delete' },
+    ],
+  },
+  {
+    section: 'trees',
+    category: 'Red-Black Tree',
+    icon: '🔴',
+    items: [
+      { id: 'rbtInsert', name: 'RBT Insert' },
+      { id: 'rbtDelete', name: 'RBT Delete' },
+      { id: 'rbtSearch', name: 'RBT Search' },
+    ],
+  },
+  {
+    section: 'trees',
+    category: 'Segment Tree',
+    icon: '📐',
+    items: [
+      { id: 'segTreeBuild', name: 'Build' },
+      { id: 'segTreeQuery', name: 'Range Sum Query' },
+      { id: 'segTreeUpdate', name: 'Point Update' },
+    ],
+  },
+  {
+    section: 'trees',
+    category: 'Heap',
+    icon: '🔺',
+    items: [
+      { id: 'minHeapInsert', name: 'Min Heap Insert' },
+      { id: 'minHeapExtract', name: 'Min Heap Extract' },
+      { id: 'maxHeapInsert', name: 'Max Heap Insert' },
+      { id: 'maxHeapExtract', name: 'Max Heap Extract' },
+      { id: 'heapBuildMin', name: 'Build Min Heap' },
+      { id: 'heapBuildMax', name: 'Build Max Heap' },
+      { id: 'heapSort', name: 'Heap Sort' },
+    ],
+  },
+  {
+    section: 'graphs',
+    category: 'Graphs',
+    icon: '🕸️',
+    items: [
+      { id: 'dijkstra', name: "Dijkstra's Algorithm" },
+      { id: 'bellmanFord', name: 'Bellman-Ford Algorithm' },
+      { id: 'prim', name: "Prim's MST" },
+      { id: 'kruskal', name: "Kruskal's MST" },
+      { id: 'topoSort', name: 'Topological Sort' },
+    ],
+  },
+  {
+    section: 'strings',
+    category: 'Strings + Special DS',
+    icon: '🔤',
+    items: [
+      { id: 'kmp', name: 'KMP Search' },
+      { id: 'trie', name: 'Trie (Prefix Tree)' },
+      { id: 'dsu', name: 'Union-Find (DSU)' },
+    ],
+  },
+];
+
+/**
+ * Sidebar — left panel listing algorithms grouped by category.
+ */
+export default function Sidebar({ selected, onSelect, section }) {
+  const visible = algorithms.filter(g => g.section === (section || 'strings'));
+
+  return (
+    <aside className="w-56 shrink-0 bg-zinc-950 border-r border-zinc-800/50 flex flex-col overflow-y-auto">
+      <div className="p-4">
+        <h2 className="text-[11px] font-bold uppercase tracking-widest text-zinc-500 mb-4">
+          Algorithms
+        </h2>
+
+        {visible.map((group) => (
+          <div key={group.category} className="mb-6">
+            <div className="flex items-center gap-2 mb-2 px-1">
+              <span className="text-sm text-zinc-400">{group.icon}</span>
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">
+                {group.category}
+              </span>
+            </div>
+
+            <div className="flex flex-col gap-1">
+              {group.items.map((item) => {
+                const isActive = selected === item.id;
+                return (
+                  <motion.button
+                    key={item.id}
+                    onClick={() => onSelect(item.id)}
+                    whileHover={{ x: 4 }}
+                    whileTap={{ scale: 0.97 }}
+                    className={`
+                      text-left px-3 py-1.5 rounded-md text-[13px] font-medium transition-colors cursor-pointer
+                      ${isActive
+                        ? 'bg-zinc-800 text-zinc-100 border border-zinc-700/50 shadow-sm'
+                        : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/30 border border-transparent'
+                      }
+                    `}
+                  >
+                    {item.name}
+                  </motion.button>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Footer */}
+      <div className="mt-auto p-4 border-t border-zinc-800/50">
+        <p className="text-[10px] text-zinc-600 text-center font-medium">
+          Built with ♥ for learning
+        </p>
+      </div>
+    </aside>
+  );
+}
