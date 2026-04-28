@@ -1,5 +1,3 @@
-// ─── Heap — generator-based animation ────────────────────────────────────────
-
 function mkFrame(array, opts = {}) {
   return {
     array: [...array],

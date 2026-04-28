@@ -513,7 +513,6 @@ export function* bstDFS(root) {
   };
 }
 
-// ─── Build a starter BST from an array of values ────────────────────────────
 export function buildBST(values) {
   nextId = 0;
   let root = null;

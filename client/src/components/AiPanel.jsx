@@ -64,7 +64,7 @@ export default function AiPanel({ selectedAlgo }) {
   };
 
   return (
-    <aside className="w-80 shrink-0 bg-zinc-950 border-l border-zinc-800/50 flex flex-col h-full">
+    <aside className="w-full bg-zinc-950 flex flex-col h-full">
       {/* Header */}
       <div className="px-4 py-3 border-b border-zinc-800/50 shrink-0">
         <h2 className="text-sm font-semibold text-zinc-200 flex items-center gap-2">

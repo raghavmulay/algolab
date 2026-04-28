@@ -142,13 +142,13 @@ export default function Home() {
                           : sorting.frame?.activeLine;
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen overflow-hidden">
       <Navbar algorithmInfo={currentInfo} />
 
-      <div className="flex flex-1 min-h-0">
+      <div className="flex flex-1 min-h-0 overflow-hidden">
         <Sidebar selected={selectedAlgo} onSelect={handleSelectAlgo} section={section} />
 
-        <main className="flex-1 flex flex-col min-h-0 bg-zinc-950">
+        <main className="flex-1 flex flex-col min-h-0 overflow-hidden bg-zinc-950">
           {isSegTree ? (
             <SegmentTreeSection
               selectedAlgo={selectedAlgo}
@@ -289,36 +289,38 @@ export default function Home() {
           )}
         </main>
 
-        <div className="relative flex flex-col">
-          <div className="absolute top-4 -left-10 z-10 w-10">
-            <button
-              onClick={() => setShowCodePanel(!showCodePanel)}
-              className="flex flex-col items-center justify-center gap-1 w-10 py-3 bg-zinc-900 hover:bg-zinc-800 border-y border-l border-zinc-800/50 rounded-l-md transition-colors group cursor-pointer"
-              title={showCodePanel ? 'Show AI Chat' : 'Show Code'}
-            >
-              {showCodePanel ? (
-                <>
-                  <svg className="w-4 h-4 text-zinc-500 group-hover:text-zinc-200 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-                  </svg>
-                  <span className="text-[10px] font-medium text-zinc-600 group-hover:text-zinc-400">AI</span>
-                </>
-              ) : (
-                <>
-                  <svg className="w-4 h-4 text-zinc-500 group-hover:text-zinc-200 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                  </svg>
-                  <span className="text-[10px] font-medium text-zinc-600 group-hover:text-zinc-400">Code</span>
-                </>
-              )}
-            </button>
-          </div>
+        <div className="w-80 shrink-0 flex flex-col min-h-0 border-l border-zinc-800/50 relative">
+          {/* Toggle button — sits flush on the left edge */}
+          <button
+            onClick={() => setShowCodePanel(!showCodePanel)}
+            className="absolute top-4 -left-9 z-10 flex flex-col items-center justify-center gap-1 w-9 py-3 bg-zinc-900 hover:bg-zinc-800 border-y border-l border-zinc-800/50 rounded-l-md transition-colors group cursor-pointer"
+            title={showCodePanel ? 'Show AI Chat' : 'Show Code'}
+          >
+            {showCodePanel ? (
+              <>
+                <svg className="w-4 h-4 text-zinc-500 group-hover:text-zinc-200 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                </svg>
+                <span className="text-[10px] font-medium text-zinc-600 group-hover:text-zinc-400">AI</span>
+              </>
+            ) : (
+              <>
+                <svg className="w-4 h-4 text-zinc-500 group-hover:text-zinc-200 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                </svg>
+                <span className="text-[10px] font-medium text-zinc-600 group-hover:text-zinc-400">Code</span>
+              </>
+            )}
+          </button>
 
-          {showCodePanel ? (
-            <CodePanel code={currentCode} activeLine={currentActiveLine} />
-          ) : (
-            <AiPanel selectedAlgo={selectedAlgo} />
-          )}
+          {/* Panel content — always w-80, no layout shift */}
+          <div className="flex-1 min-h-0 flex flex-col w-full">
+            {showCodePanel ? (
+              <CodePanel code={currentCode} activeLine={currentActiveLine} />
+            ) : (
+              <AiPanel selectedAlgo={selectedAlgo} />
+            )}
+          </div>
         </div>
       </div>
     </div>

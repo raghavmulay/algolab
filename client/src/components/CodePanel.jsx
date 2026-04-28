@@ -18,7 +18,7 @@ export default function CodePanel({ code = '', activeLine = null }) {
 
   if (!code) {
     return (
-      <div className="w-80 bg-zinc-950 border-l border-zinc-800/50 flex items-center justify-center">
+      <div className="w-full bg-zinc-950 flex items-center justify-center h-full">
         <p className="text-zinc-500 text-sm">No code available</p>
       </div>
     );
@@ -27,7 +27,7 @@ export default function CodePanel({ code = '', activeLine = null }) {
   const lines = code.split('\n');
 
   return (
-    <div className="w-80 bg-zinc-950 border-l border-zinc-800/50 flex flex-col">
+    <div className="w-full bg-zinc-950 flex flex-col h-full">
       <div className="px-4 py-3 border-b border-zinc-800/50">
         <h3 className="text-sm font-semibold text-zinc-200">Algorithm Code</h3>
         <p className="text-[11px] text-zinc-500 mt-0.5">Live execution trace</p>

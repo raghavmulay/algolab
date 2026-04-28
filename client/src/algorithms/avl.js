@@ -1,5 +1,3 @@
-// ─── AVL Tree — generator-based animation ────────────────────────────────────
-
 let avlNextId = 0;
 
 function makeNode(value) {
@@ -49,7 +47,6 @@ function countNodes(node) {
   return 1 + countNodes(node.left) + countNodes(node.right);
 }
 
-// mkFrame always clones from the current root so the full tree is shown
 function mkFrame(root, opts = {}) {
   return {
     root: cloneTree(root),
@@ -65,8 +62,6 @@ function mkFrame(root, opts = {}) {
     ...opts,
   };
 }
-
-// ─── AVL Insert generator ─────────────────────────────────────────────────────
 
 export function* avlInsert(root, value) {
   avlNextId = countNodes(root);
@@ -161,8 +156,6 @@ export function* avlInsert(root, value) {
   return root;
 }
 
-// ─── AVL Delete generator ─────────────────────────────────────────────────────
-
 export function* avlDelete(root, value) {
   const r = { root };
 
@@ -256,8 +249,6 @@ export function* avlDelete(root, value) {
   return root;
 }
 
-// ─── Build starter AVL tree (no animation) ───────────────────────────────────
-
 function insertAVL(node, value) {
   if (!node) return makeNode(value);
   if (value < node.value) node.left = insertAVL(node.left, value);
@@ -279,7 +270,7 @@ export function buildAVL(values) {
   return root;
 }
 
-// ─── Info & Code ──────────────────────────────────────────────────────────────
+// ─── Info & Code 
 
 export const avlInfo = {
   name: 'AVL Tree',

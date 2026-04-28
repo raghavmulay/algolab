@@ -1,5 +1,3 @@
-// ─── Red-Black Tree — generator-based animation ──────────────────────────────
-
 const RED = 'RED';
 const BLACK = 'BLACK';
 let rbtNextId = 0;
@@ -8,7 +6,7 @@ function makeNode(value) {
   return { id: rbtNextId++, value, color: RED, left: null, right: null, parent: null };
 }
 
-// Deep clone without parent refs (for frame snapshots)
+
 function cloneTree(node) {
   if (!node) return null;
   const n = { id: node.id, value: node.value, color: node.color, left: null, right: null };
@@ -20,7 +18,6 @@ function cloneTree(node) {
 function isRed(node) { return node !== null && node.color === RED; }
 function setColor(node, color) { if (node) node.color = color; }
 
-// Compute black-height map: node.id -> black-height (blacks from node to leaf, not counting node itself)
 function computeBlackHeights(node, map = new Map()) {
   if (!node) return 0;
   const l = computeBlackHeights(node.left, map);
@@ -84,7 +81,6 @@ function getRoot(node) {
   return node;
 }
 
-// ─── Insert Fix-up ────────────────────────────────────────────────────────────
 
 function* insertFixup(root, z) {
   while (z.parent && z.parent.color === RED) {
@@ -182,7 +178,6 @@ function* insertFixup(root, z) {
   return root;
 }
 
-// ─── RBT Insert generator ─────────────────────────────────────────────────────
 
 export function* rbtInsert(root, value) {
   rbtNextId = countNodes(root);
@@ -238,7 +233,6 @@ export function* rbtInsert(root, value) {
   return root;
 }
 
-// ─── Delete helpers ───────────────────────────────────────────────────────────
 
 function rbTransplant(root, u, v) {
   if (!u.parent) root = v;
@@ -253,7 +247,6 @@ function treeMinimum(node) {
   return node;
 }
 
-// Sentinel nil node for delete fixup
 function makeNil(parent) {
   return { id: -1, value: null, color: BLACK, left: null, right: null, parent };
 }
@@ -385,7 +378,6 @@ function* deleteFixup(root, x, xParent) {
   return getRoot(root);
 }
 
-// ─── RBT Delete generator ─────────────────────────────────────────────────────
 
 export function* rbtDelete(root, value) {
   // Find node
@@ -497,7 +489,6 @@ export function* rbtSearch(root, value) {
   return root;
 }
 
-// ─── Build starter RBT (no animation) ────────────────────────────────────────
 
 function insertRBT(root, value) {
   rbtNextId = countNodes(root);
@@ -505,8 +496,6 @@ function insertRBT(root, value) {
   let result = root;
   let next = gen.next();
   while (!next.done) next = gen.next();
-  // generator return value is the new root
-  // We need to run it to completion and get the root from last frame
   return next.value ?? root;
 }
 
